@@ -11,11 +11,27 @@ export const getData = () => dispatch => {
   axios
     .get('http://localhost:3333/smurfs/')
     .then(res => {
-      console.log(res);
       dispatch({ type: FETCH_SMURFS_SUCCESS, payload: res.data });
     })
     .catch(err => {
-      dispatch({ type: FETCH_SMURFS_FAILURE });
+      console.log(err);
+      dispatch({ type: FETCH_SMURFS_FAILURE, payload: err });
+    });
+};
+
+export const ADD_START = 'ADD_START';
+export const ADD_SUCCESS = 'ADD_SUCCESS';
+export const ADD_FAILURE = 'ADD_FAILURE';
+export const addSmurf = smurf => dispatch => {
+  dispatch({ type: ADD_START });
+  axios
+    .post('http://localhost:3333/smurfs/', smurf)
+    .then(res => {
+      dispatch({ type: ADD_SUCCESS, payload: res.data });
+    })
+    .catch(err => {
+      console.log(err);
+      dispatch({ type: ADD_FAILURE, payload: err });
     });
 };
 

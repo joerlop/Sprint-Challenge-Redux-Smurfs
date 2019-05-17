@@ -1,7 +1,11 @@
-import { 
-  FETCH_SMURFS_START, 
-  FETCH_SMURFS_SUCCESS, 
-  FETCH_SMURFS_FAILURE } from "../actions"
+import {
+  FETCH_SMURFS_START,
+  FETCH_SMURFS_SUCCESS,
+  FETCH_SMURFS_FAILURE,
+  ADD_FAILURE,
+  ADD_START,
+  ADD_SUCCESS
+} from "../actions";
 
 const initialState = {
   smurfs: [],
@@ -9,8 +13,8 @@ const initialState = {
   addingSmurf: false,
   updatingSmurf: false,
   deletingSmurf: false,
-  error: ""  
-}
+  error: ""
+};
 
 const rootReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -30,11 +34,30 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         fetchingFriends: false,
-        error: action.payload
+        error: action.payload.response.data.Error
+      };
+    case ADD_START:
+      return {
+        ...state,
+        fetchingSmurfs: false,
+        error: "",
+        addingSmurf: true
+      };
+    case ADD_SUCCESS:
+      return {
+        ...state,
+        addingSmurf: false,
+        smurfs: [...action.payload]
+      };
+    case ADD_FAILURE:
+      return {
+        ...state,
+        addingSmurf: false,
+        error: action.payload.response.data.Error
       };
     default:
       return state;
   }
-}
+};
 
 export default rootReducer;

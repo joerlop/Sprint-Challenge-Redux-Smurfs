@@ -1,9 +1,9 @@
 import React, { Component } from "react";
-import "./App.css";
+import "./App.scss";
 
-import { getData } from "../actions";
+import { getData, addSmurf } from "../actions";
 import { connect } from "react-redux";
-import Smurf from "./Smurf"
+import Smurf from "./Smurf";
 
 /*
  to wire this component up you're going to need a few things.
@@ -14,22 +14,72 @@ import Smurf from "./Smurf"
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      smurf: {
+        name: "",
+        age: "",
+        height: ""
+      }
+    };
   }
 
   componentDidMount() {
     this.props.getData();
   }
 
+  handleChanges = event => {
+    event.preventDefault();
+    this.setState({
+      smurf: {
+        ...this.state.smurf,
+        [event.target.name]: event.target.value
+      }
+    });
+  };
+
+  add = event => {
+    event.preventDefault();
+    this.props.addSmurf(this.state.smurf);
+    this.setState({
+      smurf: {
+        name: "",
+        age: "",
+        height: ""
+      }
+    })
+}
+
   render() {
-    console.log(this.props);
     return (
-    <div className="App">
-      {this.props.smurfs.map(smurf => 
-        <Smurf smurf={smurf} />
-      )}
-    </div>
-    ) 
+      <div className="App">
+        <div className="smurf-container">
+          {this.props.smurfs.map(smurf => (
+            <Smurf smurf={smurf} />
+          ))}
+        </div>
+        <form className="form" onSubmit={this.add}>
+          <input
+            placeholder="Name"
+            value={this.state.smurf.name}
+            onChange={e => this.handleChanges(e)}
+            name="name"
+          />
+          <input
+            placeholder="Age"
+            value={this.state.smurf.age}
+            onChange={e => this.handleChanges(e)}
+            name="age"
+          />
+          <input
+            placeholder="Height"
+            value={this.state.smurf.height}
+            onChange={e => this.handleChanges(e)}
+            name="height"
+          />
+          <button onClick={this.add}>Add</button>
+        </form>
+      </div>
+    );
   }
 }
 
@@ -41,6 +91,6 @@ const mapStateToProps = state => ({
 export default connect(
   mapStateToProps,
   {
-    getData
+    getData, addSmurf
   }
 )(App);

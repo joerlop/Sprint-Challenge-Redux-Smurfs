@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  margin: 50px;
 }
 
 .App-logo {
@@ -25,4 +26,27 @@
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
+}
+
+.smurf-container {
+  display: flex;
+  justify-content: space-evenly;
+  margin-bottom: 50px;
+  flex-wrap: wrap;
+}
+
+form {
+  input {
+    border-radius: 5px;
+    border: 1px solid lightgray;
+    padding: 5px;
+    margin: 5px;
+}
+
+button {
+    border-radius: 5px;
+    border: 1px solid lightgray;
+    padding: 5px;
+    margin: 5px;
+}
 }

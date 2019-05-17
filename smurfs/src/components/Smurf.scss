@@ -1,0 +1,17 @@
+.smurf {
+    padding: 10px;
+    margin: 10px;
+    width: 225px;
+    border: 1px solid lightgray;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    button {
+        border-radius: 5px;
+        border: 1px solid lightgray;
+        padding: 5px;
+        margin: 5px;
+    }
+}

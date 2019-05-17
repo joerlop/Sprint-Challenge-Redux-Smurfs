@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "./App.scss";
 
-import { getData, addSmurf } from "../actions";
+import { getData, addSmurf, deleteSmurf } from "../actions";
 import { connect } from "react-redux";
 import Smurf from "./Smurf";
 
@@ -49,12 +49,17 @@ class App extends Component {
     })
 }
 
+delete = (event, id) => {
+  event.preventDefault();
+    this.props.deleteSmurf(id);
+}
+
   render() {
     return (
       <div className="App">
         <div className="smurf-container">
           {this.props.smurfs.map(smurf => (
-            <Smurf smurf={smurf} />
+            <Smurf delete={this.delete} smurf={smurf} />
           ))}
         </div>
         <form className="form" onSubmit={this.add}>
@@ -91,6 +96,6 @@ const mapStateToProps = state => ({
 export default connect(
   mapStateToProps,
   {
-    getData, addSmurf
+    getData, addSmurf, deleteSmurf
   }
 )(App);
